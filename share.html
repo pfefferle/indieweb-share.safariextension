@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IndieWeb Share</title>
+<script>
+
+function performCommand(event) {
+	if (event.command === "indieweb-share-button") {
+  	showButton(event);
+  }
+}
+ 
+function validateCommand(event) {
+	if (event.command === "indieweb-share-button") {
+		// Disable the button if there is no URL loaded in the tab.
+    event.target.disabled = !event.target.browserWindow.activeTab.url;
+  }
+}
+
+function showButton(event) {
+  if (window.top == window.self) {
+		var oexchange_endpoint = "http://api.addthis.com/oexchange/0.8/offer";
+		
+		if (safari.extension.settings.oexchange_endpoint) {
+			oexchange_endpoint = safari.extension.settings.oexchange_endpoint;
+		}
+		
+		var title = safari.application.activeBrowserWindow.activeTab.title;
+		
+		var activeTab = safari.application.activeBrowserWindow.activeTab.url;
+    var newTab = safari.application.openBrowserWindow().activeTab;
+    newTab.url = oexchange_endpoint+"?url="+encodeURIComponent(activeTab)+"&title="+encodeURIComponent(title);
+  }
+}
+
+safari.application.addEventListener("command", performCommand, false);
+safari.application.addEventListener("validate", validateCommand, false);
+</script>
+</head>
+<body></body>
+</html>
