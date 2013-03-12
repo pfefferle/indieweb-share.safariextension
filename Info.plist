@@ -57,5 +57,7 @@
 			<string>All</string>
 		</dict>
 	</dict>
+	<key>Website</key>
+	<string>https://github.com/pfefferle/indieweb-share.safariextension</string>
 </dict>
 </plist>
